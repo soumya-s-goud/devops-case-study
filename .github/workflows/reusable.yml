@@ -1,0 +1,25 @@
+name: Replace Tag Reusable Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  replace_tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run replace-tag action
+        uses: ./.github/actions/replace-tag  # Calls your custom GitHub Action located in the repo.
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add input.txt
+          git commit -m "Replace tag 1 with tag 2 via reusable workflow" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token used to authenticate git push back to repo.
