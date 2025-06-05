@@ -1,0 +1,12 @@
+name: Replace Tag
+description: Replace "tag 1" with "tag 2" in input.txt
+runs:
+  using: "composite"
+  steps:
+  - name: Make replace.sh executable
+    run: chmod +x .github/actions/replace-tag/replace.sh
+    shell: bash
+
+  - name: Run replace.sh script
+    run: bash .github/actions/replace-tag/replace.sh
+    shell: bash
