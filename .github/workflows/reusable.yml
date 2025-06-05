@@ -1,4 +1,4 @@
-name: Replace Tag Reusable Workflow
+name: Replace Tag and Push Image
 
 on:
   workflow_call:
@@ -28,3 +28,29 @@ jobs:
           git add input.txt
           git commit -m "Replace tag 1 with tag 2 via reusable workflow" || echo "No changes to commit"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:${{ github.ref_name }}
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/devops-case-study/replace-tag-app:latest
+
+      - name: Verify Docker image was pushed
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/devops-case-study/replace-tag-app:latest
+          echo "Verifying pushed image: $IMAGE"
+          if docker pull $IMAGE; then
+            echo "Image pulled and verified successfully."
+          else
+            echo "Failed to verify the image. Check image name, authentication, or registry status." >&2
+            exit 1
+          fi
