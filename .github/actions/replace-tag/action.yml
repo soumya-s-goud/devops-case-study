@@ -1,0 +1,7 @@
+name: Replace Tag
+description: Replace "tag 1" with "tag 2" in input.txt
+runs:
+  using: "composite"
+  steps:
+    - run: bash ./replace.sh
+      shell: bash
