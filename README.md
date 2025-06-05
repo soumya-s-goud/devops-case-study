@@ -1,2 +1,1 @@
-# devops-case-study
-Greenbone Ag 
+# DevOps Action Case Study
