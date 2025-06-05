@@ -62,7 +62,7 @@ Automates replacing `"tag 1"` with `"tag 2"` in `input.txt`, commits the change,
 [devops-case-study](https://github.com/soumya-s-goud/devops-case-study/)
 
 # Container image location: 
-`https://github.com/soumya-s-goud/devops-case-study/pkgs/container/devops-case-study%2Freplace-tag-app`
+[https://github.com/soumya-s-goud/devops-case-study/pkgs/container/devops-case-study%2Freplace-tag-app](https://github.com/soumya-s-goud/devops-case-study/pkgs/container/devops-case-study%2Freplace-tag-app)
 
 # Pull via Docker CLI:
 ```bash
